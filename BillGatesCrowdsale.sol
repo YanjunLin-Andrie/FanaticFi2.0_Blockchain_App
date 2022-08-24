@@ -8,16 +8,16 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/distribution/RefundablePostDeliveryCrowdsale.sol";
 
 
-// Bootstrap the KaseiCoinCrowdsale contract by inheriting the following OpenZeppelin:
+// Bootstrap the BillGatesCrowdsale contract by inheriting the following OpenZeppelin:
 // * Crowdsale
 // * MintedCrowdsale
 contract BillGatesCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
     
-    // Provide parameters for all of the features of your crowdsale, such as the `rate`, `wallet` for fundraising, and `token`.
+    // Provide parameters for all of the features of crowdsale, such as the `rate`, `wallet` for fundraising, and `token`.
     constructor(
         uint256 rate, // rate in TKNbits
         address payable wallet, // sale beneficiary
-        BillGates token, // the KaseiCoin itself that the KaseiCoinCrowdsale will work with
+        BillGates token, // the BillGates itself that the BillGatesCrowdsale will work with
         uint goal, // the crowdsale goal
         uint open, // the crowdsale opening time
         uint close // the crowdsale closing time
@@ -33,9 +33,9 @@ contract BillGatesCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, Time
 
 
 contract BillGatesCrowdsaleDeployer {
-    // Create an `address public` variable called `kasei_token_address`.
+    // Create an `address public` variable called `bill_token_address`.
     address public bill_token_address;
-    // Create an `address public` variable called `kasei_crowdsale_address`.
+    // Create an `address public` variable called `bill_crowdsale_address`.
     address public bill_crowdsale_address;
 
     // Add the constructor.
@@ -45,22 +45,22 @@ contract BillGatesCrowdsaleDeployer {
         address payable wallet, // this address will receive all Ether raised by the crowdsale
         uint goal
     ) public {
-        // Create a new instance of the KaseiCoin contract.
+        // Create a new instance of the BillGates contract.
         BillGates token = new BillGates(name, symbol, 0);
         
-        // Assign the token contract’s address to the `kasei_token_address` variable.
+        // Assign the token contract’s address to the `bill_token_address` variable.
         bill_token_address = address(token);
 
-        // Create a new instance of the `KaseiCoinCrowdsale` contract
+        // Create a new instance of the `BillGatesCrowdsale` contract
         BillGatesCrowdsale bill_crowdsale = new BillGatesCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
             
-        // Aassign the `KaseiCoinCrowdsale` contract’s address to the `kasei_crowdsale_address` variable.
+        // Aassign the `BillGatesCrowdsale` contract’s address to the `bill_crowdsale_address` variable.
         bill_crowdsale_address = address(bill_crowdsale);
 
-        // Set the `KaseiCoinCrowdsale` contract as a minter
+        // Set the `BillGatesCrowdsale` contract as a minter
         token.addMinter(bill_crowdsale_address);
         
-        // Have the `KaseiCoinCrowdsaleDeployer` renounce its minter role.
+        // Have the `BillGatesCrowdsaleDeployer` renounce its minter role.
         token.renounceMinter();
     }
 }
