@@ -18,14 +18,15 @@ celebrity_database = {
     "TRUMP": ["Save Donald Trump", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", 9, 9999999999999, "pics/trump.jpeg"],
     "KIMCHI": ["Kim owns all blockchains", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", 11, 11111111111111, "pics/kim.jpeg"]
 }
+db_list = list(celebrity_database.values())
+
 
 # A list of public figures' token names
 token_names = ["BILLYG", "ELON", "TRUMP", "KIMCHI"]
 
+
 def get_people(w3):
     """Display the database of Fintech Finders candidate information."""
-    db_list = list(celebrity_database.values())
-    
     count=0
     max_cols=2
     max_rows=math.ceil(len(token_names)/max_cols)
@@ -41,28 +42,6 @@ def get_people(w3):
                     st.write("#### Only ", db_list[count][3], "amount of tokens are available")
                     st.text(" \n")
                     count +=1
-    
-    # rows = 1
-    # cols = 1
-    # for i in token_names:
-    #     with :
-    #                 st.image(db_list[each_row][4], width=250)
-    #                 st.write("#### Name: ", db_list[each_row][0])
-    #                 st.write("Ethereum Account Address: ", db_list[each_row][1])
-    #                 st.write("#### Token Price: ", db_list[each_row][2], "ETH per token")
-    #                 st.write("#### Only ", db_list[each_row][3], "amount of tokens are available")
-    #                 st.text(" \n")
-
-    # cols = st.columns(2)
-    # # for number in range(1,len(token_names)):
-    # for i, c in enumerate(cols):
-    #     with c:
-    #         st.image(db_list[i][4], width=250)
-    #         st.write("#### Name: ", db_list[i][0])
-    #         st.write("Ethereum Account Address: ", db_list[i][1])
-    #         st.write("#### Token Price: ", db_list[i][2], "ETH per token")
-    #         st.write("#### Only ", db_list[i][3], "amount of tokens are available")
-    #         st.text(" \n")
 
 
 # Streamlit application headings
@@ -117,16 +96,30 @@ st.sidebar.markdown("## Total Token Cost in Ether")
 total_cost = token_price * number_of_tokens
 st.sidebar.write(total_cost)
 
+# celebrity_database = {
+#     "BILLYG": ["6 pack Bill", "0xaC8eB8B2ed5C4a0fC41a84Ee4950F417f67029F0", 6, 66666666666, "pics/bill.jpeg"],
+#     "ELON": ["Get lit with Elon Musk", "0x2422858F9C4480c2724A309D58Ffd7Ac8bF65396", 42, 42000000000420, "pics/elon.jpeg"],
+#     "TRUMP": ["Save Donald Trump", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", 9, 9999999999999, "pics/trump.jpeg"],
+#     "KIMCHI": ["Kim owns all blockchains", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", 11, 11111111111111, "pics/kim.jpeg"]
+# }
+# db_list = list(celebrity_database.values())
 if st.sidebar.button("Buy Token"):
-	transaction_hash = send_transaction(w3, account, celebrity_address, total_cost)
+    for i in db_list:
+        transaction_hash = send_transaction(w3, account, i[1], i[2]*number_of_tokens)
+        
+        # Update total number of tokens
+        db_list[db_list.index(i)][3] = i[3] - number_of_tokens
 
-	# Markdown for the transaction hash
-	st.sidebar.markdown("#### Validated Transaction Hash")
+        # Markdown for the transaction hash
+        st.sidebar.markdown("#### Validated Transaction Hash")
 
-	# Write the returned transaction hash to the screen
-	st.sidebar.write(transaction_hash)
+        # Write the returned transaction hash to the screen
+        st.sidebar.write(transaction_hash)
 
-	# Celebrate your successful payment
-	st.balloons()
+        # Celebrate your successful payment
+        st.balloons()
+
+        
+
 
 get_people(w3)
