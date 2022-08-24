@@ -34,13 +34,24 @@ def get_people(w3):
         for each_col in range(max_cols):
             if count <= len(token_names):
                 with columns[each_col]:
-                    st.image(db_list[each_row][4], width=250)
-                    st.write("#### Name: ", db_list[each_row][0])
-                    st.write("Ethereum Account Address: ", db_list[each_row][1])
-                    st.write("#### Token Price: ", db_list[each_row][2], "ETH per token")
-                    st.write("#### Only ", db_list[each_row][3], "amount of tokens are available")
+                    st.image(db_list[count][4], width=250)
+                    st.write("#### Name: ", db_list[count][0])
+                    st.write("Ethereum Account Address: ", db_list[count][1])
+                    st.write("#### Token Price: ", db_list[count][2], "ETH per token")
+                    st.write("#### Only ", db_list[count][3], "amount of tokens are available")
                     st.text(" \n")
                     count +=1
+    
+    # rows = 1
+    # cols = 1
+    # for i in token_names:
+    #     with :
+    #                 st.image(db_list[each_row][4], width=250)
+    #                 st.write("#### Name: ", db_list[each_row][0])
+    #                 st.write("Ethereum Account Address: ", db_list[each_row][1])
+    #                 st.write("#### Token Price: ", db_list[each_row][2], "ETH per token")
+    #                 st.write("#### Only ", db_list[each_row][3], "amount of tokens are available")
+    #                 st.text(" \n")
 
     # cols = st.columns(2)
     # # for number in range(1,len(token_names)):
