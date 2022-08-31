@@ -1,6 +1,6 @@
 pragma solidity ^0.5.5;
 
-import "./BillGates.sol";
+import "./DonaldTrump.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/Crowdsale.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/emission/MintedCrowdsale.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/validation/CappedCrowdsale.sol";
@@ -11,13 +11,13 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 // Bootstrap the BillGatesCrowdsale contract by inheriting the following OpenZeppelin:
 // * Crowdsale
 // * MintedCrowdsale
-contract BillGatesCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
+contract DonaldTrumpCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
     
     // Provide parameters for all of the features of crowdsale, such as the `rate`, `wallet` for fundraising, and `token`.
     constructor(
         uint256 rate, // rate in TKNbits
         address payable wallet, // sale beneficiary
-        BillGates token, // the BillGates itself that the BillGatesCrowdsale will work with
+        DonaldTrump token, // the DonaldTrump itself that the BillGatesCrowdsale will work with
         uint goal, // the crowdsale goal
         uint open, // the crowdsale opening time
         uint close // the crowdsale closing time
@@ -32,11 +32,11 @@ contract BillGatesCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, Time
 }
 
 
-contract BillGatesCrowdsaleDeployer {
-    // Create an `address public` variable called `bill_token_address`.
-    address public bill_token_address;
-    // Create an `address public` variable called `bill_crowdsale_address`.
-    address public bill_crowdsale_address;
+contract DonaldTrumpCrowdsaleDeployer {
+    // Create an `address public` variable called `trump_token_address`.
+    address public trump_token_address;
+    // Create an `address public` variable called `trump_crowdsale_address`.
+    address public trump_crowdsale_address;
 
     // Add the constructor.
     constructor(
@@ -45,20 +45,20 @@ contract BillGatesCrowdsaleDeployer {
         address payable wallet, // this address will receive all Ether raised by the crowdsale
         uint goal
     ) public {
-        // Create a new instance of the BillGates contract.
-        BillGates token = new BillGates(name, symbol, 0);
+        // Create a new instance of the DonaldTrump contract.
+        DonaldTrump token = new DonaldTrump(name, symbol, 0);
         
-        // Assign the token contract’s address to the `bill_token_address` variable.
-        bill_token_address = address(token);
+        // Assign the token contract’s address to the `trump_token_address` variable.
+        trump_token_address = address(token);
 
-        // Create a new instance of the `BillGatesCrowdsale` contract
-        BillGatesCrowdsale bill_crowdsale = new BillGatesCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
+        // Create a new instance of the `DonaldTrumpCrowdsale` contract
+        DonaldTrumpCrowdsale trump_crowdsale = new DonaldTrumpCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
             
-        // Aassign the `BillGatesCrowdsale` contract’s address to the `bill_crowdsale_address` variable.
-        bill_crowdsale_address = address(bill_crowdsale);
+        // Aassign the `DonaldTrumpCrowdsale` contract’s address to the `trump_crowdsale_address` variable.
+        trump_crowdsale_address = address(trump_crowdsale);
 
-        // Set the `BillGatesCrowdsale` contract as a minter
-        token.addMinter(bill_crowdsale_address);
+        // Set the `BDonaldTrumpCrowdsale` contract as a minter
+        token.addMinter(trump_crowdsale_address);
         
         // Have the `BillGatesCrowdsaleDeployer` renounce its minter role.
         token.renounceMinter();

@@ -8,8 +8,8 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20Detailed.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20Mintable.sol";
 
-// Create a constructor for the BillGates contract and have the contract inherit the libraries that imported from OpenZeppelin.
-contract BillGates is ERC20, ERC20Detailed, ERC20Mintable {
+// Create a constructor for the celebrity contract and have the contract inherit the libraries that imported from OpenZeppelin.
+contract ElonMusk is ERC20, ERC20Detailed, ERC20Mintable {
 
 constructor(
         string memory name,

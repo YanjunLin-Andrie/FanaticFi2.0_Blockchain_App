@@ -19,35 +19,59 @@ w3 = Web3(Web3.HTTPProvider('HTTP://127.0.0.1:8545'))
 
 ##### ? Ways to simplify?
 # Load all abi files
-with open("BillGates_abi.json") as token_abi:
+
+# deployer_abis = {'deployer_abi': "abi_files/BillGates_deployer_abi.json", 'elon_deployer_abi': "abi_files/ElonMusk_deployer_abi.json"}
+
+# crowdsale_abis = {'crowdsale_abi': "abi_files/BillGates_Crowdsale_abi.json",'elon_crowdsale_abi': "abi_files/ElonMusk_Crowdsale_abi.json"}
+
+# token_abis = {'token_abi': "abi_files/BillGates_abi.json",'elon_token_abi': "abi_files/ElonMusk_abi.json"}
+
+
+with open("abi_files/BillGates_abi.json") as token_abi:
     BillGates_abi = json.load(token_abi)
-with open("BillGates_Crowdsale_abi.json") as crowdsale_abi:
+with open("abi_files/BillGates_Crowdsale_abi.json") as crowdsale_abi:
     BillGates_Crowdsale_abi = json.load(crowdsale_abi)
-with open("BillGates_deployer_abi.json") as deployer_abi:
+with open("abi_files/BillGates_deployer_abi.json") as deployer_abi:
     BillGates_deployer_abi = json.load(deployer_abi)
 
-with open("ElonMusk_abi.json") as elon_token_abi:
+with open("abi_files/ElonMusk_abi.json") as elon_token_abi:
     ElonMusk_abi = json.load(elon_token_abi)
-with open("ElonMusk_Crowdsale_abi.json") as elon_crowdsale_abi:
+with open("abi_files/ElonMusk_Crowdsale_abi.json") as elon_crowdsale_abi:
     ElonMusk_Crowdsale_abi = json.load(elon_crowdsale_abi)
-with open("ElonMusk_deployer_abi.json") as elon_deployer_abi:
+with open("abi_files/ElonMusk_deployer_abi.json") as elon_deployer_abi:
     ElonMusk_deployer_abi = json.load(elon_deployer_abi)
 
-# elon_token_contract=w3.eth.contract(address='0x64FD6fd4fDca000d02E4D4402C25f1eb040F66E0', abi=ElonMusk_abi)
-# elon_crowdsale_contract=w3.eth.contract(address='0xd6DE0A378D08336978aDD6b7610D4FA0678b1c22', abi=ElonMusk_Crowdsale_abi)
-# elon_deployer_contract=w3.eth.contract(address='0xC85F6D26612D4B82F0A87F426772755BECBE34d9', abi=ElonMusk_deployer_abi)
+with open("abi_files/DonaldTrump_abi.json") as trump_token_abi:
+    DonaldTrump_abi = json.load(trump_token_abi)
+with open("abi_files/DonaldTrump_Crowdsale_abi.json") as trump_crowdsale_abi:
+    DonaldTrump_Crowdsale_abi = json.load(trump_crowdsale_abi)
+with open("abi_files/DonaldTrump_deployer_abi.json") as trump_deployer_abi:
+    DonaldTrump_deployer_abi = json.load(trump_deployer_abi)
+
+with open("abi_files/Kimchi_abi.json") as kim_token_abi:
+    Kimchi_abi = json.load(kim_token_abi)
+with open("abi_files/Kimchi_Crowdsale_abi.json") as kim_crowdsale_abi:
+    Kimchi_Crowdsale_abi = json.load(kim_crowdsale_abi)
+with open("abi_files/Kimchi_deployer_abi.json") as kim_deployer_abi:
+    Kimchi_deployer_abi = json.load(kim_deployer_abi)
+
 
 celebrity_database = {
-    "BILLYG": ["6 pack Bill", "0xc215a18c75Cc940c8ec534Cdfd8aE9029B966120", 0.66, "pics/bill.jpeg", 
-    '0xb5bb93eACfc127f3BC0E507d77D481c2317797B0', '0x32aFA87964CC2bA46f4396104F43EFdcCDd2DC44', BillGates_deployer_abi,
+    "BILLYG": ["6 pack Bill", "0xa9Cb436660CA86a6f1955Feb079C5066d6A91cB0", 0.66, "pics/bill.jpeg", 
+    '0xF951439Aa8FCAE61c7FaEf7aD9B923e3513E92df', '0x5BC5F75baC7F2c057efaec82f8102F31526bA47d', BillGates_deployer_abi,
     BillGates_Crowdsale_abi, BillGates_abi],
 
-    "ELON": ["Get lit with Elon Musk", "0xC85F6D26612D4B82F0A87F426772755BECBE34d9", 0.42, "pics/elon.jpeg",
-    '0xd6DE0A378D08336978aDD6b7610D4FA0678b1c22', '0x64FD6fd4fDca000d02E4D4402C25f1eb040F66E0', ElonMusk_deployer_abi,
+    "ELON": ["Get lit with Elon Musk", "0xd9BA61598720508C1A7FCC403EA87E6de762e0C6", 0.42, "pics/elon.jpeg",
+    '0xDfE15b50803748BB523df696a972E2bCd12C0d2f', '0x3F62D19Db825A0aa73A491239E3e41dF46BbdafE', ElonMusk_deployer_abi,
     ElonMusk_Crowdsale_abi, ElonMusk_abi],
 
-    "TRUMP": ["Save Donald Trump", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", 0.99, "pics/trump.jpeg"],
-    "KIMCHI": ["Kim owns all blockchains", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", 0.11, "pics/kim.jpeg"]
+    "TRUMP": ["Save Donald Trump", "0x0E68C98676DbEfE6A1a53e304E8D0FA8027Fa122", 0.99, "pics/trump.jpeg",
+    '0xaba4711771e0B7AFC30237F3D3E41876B9D64538', '0xf7D5201Aa9Ed749A8573BcdF7D89b53534B394EB', DonaldTrump_deployer_abi,
+    DonaldTrump_Crowdsale_abi, DonaldTrump_abi],
+
+    "KIMCHI": ["Kim owns all blockchains", "0x28CF16cd57cb03AA25B3A8a7F4e4eA25A778D385", 0.11, "pics/kim.jpeg",
+    '0x583cfC469CcF2a14bc8B77b1740a6b2333E6F721','0xD86f7e5fECA055e6B3B5d93C9Dc6EEC0C95097d7', Kimchi_deployer_abi,
+    Kimchi_Crowdsale_abi, Kimchi_abi]
 }
 db_list = list(celebrity_database.values())
 
@@ -159,7 +183,7 @@ if st.sidebar.button("Buy Token"):
     #     "gasPrice": 0,
     #     "nonce": w3.eth.getTransactionCount(investor_account)
     # }
-    # Sign the raw transaction with ethereum account
+    # # Sign the raw transaction with ethereum account
     # signed_tx = investor_account.signTransaction(raw_tx)
 
     # crowdsale_contract.functions.buyTokens(raw_tx).send_transaction(w3, investor_account, celebrity_address, total_cost)
