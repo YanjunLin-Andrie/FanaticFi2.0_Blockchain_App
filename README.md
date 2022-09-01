@@ -2,7 +2,6 @@
 # FinaticFi 2.0
 **FinaticFi 2.0** is a blockchain platform that allows public figures to create their customized tokens, which enables them to generate revenue based on their public image/performance/likeness, etc. It also allows ‘Fanatics’ (investors/fans) to pocket profit by trading tokens as its value increases.
 ---
----
 
 # **Link to the web application** click [here](http://localhost:8501)
 
