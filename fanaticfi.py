@@ -3,7 +3,7 @@ import json
 import math
 from web3 import Web3
 import streamlit as st
-from investor_wallet import generate_account, get_balance, send_transaction
+from investor_wallet import generate_account, get_balance, buy_token
 
 #----------------------------------------------------------------------------------------------------------------------
 # Preparations 
@@ -180,30 +180,12 @@ token_contract=w3.eth.contract(address=celebrity_database[token_name][5], abi=ce
 # Click button to buy tokens
 if st.sidebar.button("Buy Token"):
 
-    # Calculate gas estimate
-    # gasEstimate = w3.eth.estimateGas(
-    #     {"to": str(celebrity_address), "from": str(investor_account), "value": number_of_tokens})
-    
-    # raw_tx = {
-    #     "from": str(investor_account),
-    #     "value": number_of_tokens,
-    #     "gas": gasEstimate,
-    #     "gasPrice": 0,
-    #     "nonce": w3.eth.getTransactionCount(investor_account)
-    # }
-    # # Sign the raw transaction with ethereum account
-    # signed_tx = investor_account.signTransaction(raw_tx)
-
-    # crowdsale_contract.functions.buyTokens(raw_tx).send_transaction(w3, investor_account, celebrity_address, total_cost)
-    
-    
-
-    transaction_hash = send_transaction(w3, investor_account, celebrity_address, total_cost)
+    transaction_hash = buy_token(w3, investor_account, celebrity_address, total_cost)
 
     # Calculate remaining number of tokens available for sale
     total_supply = token_contract.functions.totalSupply().call()
-    goal = crowdsale_contract.functions.goal().call()
-    remaining_tokens = goal - total_supply
+    cap = crowdsale_contract.functions.cap().call()
+    remaining_tokens = cap - total_supply
 
     # Write available token balance
     st.sidebar.write("#### Only ", remaining_tokens, "amount of tokens are available")
