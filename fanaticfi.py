@@ -1,13 +1,8 @@
 # Imports
-# import os
 import json
 import math
-# import time
 from web3 import Web3
 import streamlit as st
-# from typing import Any, List
-# from dotenv import load_dotenv
-# from dataclasses import dataclass
 from investor_wallet import generate_account, get_balance, send_transaction
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -17,15 +12,27 @@ from investor_wallet import generate_account, get_balance, send_transaction
 # Link app with ganache
 w3 = Web3(Web3.HTTPProvider('HTTP://127.0.0.1:8545'))
 
-##### ? Ways to simplify?
 # Load all abi files
 
-# deployer_abis = {'deployer_abi': "abi_files/BillGates_deployer_abi.json", 'elon_deployer_abi': "abi_files/ElonMusk_deployer_abi.json"}
+# abi_database = {
+#                 "BillGates_abis": ["abi_files/BillGates_abi.json", "token_abi","BillGates_abi",
+#                 "abi_files/BillGates_Crowdsale_abi.json", "crowdsale_abi", "BillGates_Crowdsale_abi",
+#                 "abi_files/BillGates_deployer_abi.json", "deployer_abi", "BillGates_deployer_abi"]
+# }
+# abi_db_list = list(abi_database.values())
 
-# crowdsale_abis = {'crowdsale_abi': "abi_files/BillGates_Crowdsale_abi.json",'elon_crowdsale_abi': "abi_files/ElonMusk_Crowdsale_abi.json"}
+# abi_owners = ["BillGates_abis"]
 
-# token_abis = {'token_abi': "abi_files/BillGates_abi.json",'elon_token_abi': "abi_files/ElonMusk_abi.json"}
+# with open(abi_database[abi_owners][0]) as abi_database[abi_owners][1]:
+#     abi_database[abi_owners][2] = json.load(abi_database[abi_owners][1])
+# with open(abi_database[abi_owners][3]) as abi_database[abi_owners][4]:
+#     abi_database[abi_owners][5] = json.load(abi_database[abi_owners][4])
+# with open(abi_database[abi_owners][6]) as abi_database[abi_owners][7]:
+#     abi_database[abi_owners][8] = json.load(abi_database[abi_owners][7])
 
+#########
+######### The method above was attemp to keep the code DRY, but we realized the unhashable list error. Below method is our final choice.
+#########
 
 with open("abi_files/BillGates_abi.json") as token_abi:
     BillGates_abi = json.load(token_abi)
@@ -55,7 +62,7 @@ with open("abi_files/Kimchi_Crowdsale_abi.json") as kim_crowdsale_abi:
 with open("abi_files/Kimchi_deployer_abi.json") as kim_deployer_abi:
     Kimchi_deployer_abi = json.load(kim_deployer_abi)
 
-
+# Establish celebrity database
 celebrity_database = {
     "BILLYG": ["6 pack Bill", "0xa9Cb436660CA86a6f1955Feb079C5066d6A91cB0", 0.66, "pics/bill.jpeg", 
     '0xF951439Aa8FCAE61c7FaEf7aD9B923e3513E92df', '0x5BC5F75baC7F2c057efaec82f8102F31526bA47d', BillGates_deployer_abi,
@@ -73,6 +80,7 @@ celebrity_database = {
     '0x583cfC469CcF2a14bc8B77b1740a6b2333E6F721','0xD86f7e5fECA055e6B3B5d93C9Dc6EEC0C95097d7', Kimchi_deployer_abi,
     Kimchi_Crowdsale_abi, Kimchi_abi]
 }
+
 db_list = list(celebrity_database.values())
 
 # A list of public figures' token names
