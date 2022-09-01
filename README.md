@@ -126,7 +126,7 @@ streamlit run fanaticfi.py
 
 **Yanjun Lin Andrie** <span>&nbsp;&nbsp;</span> |
 <span>&nbsp;&nbsp;</span> email: yanjun.lin.andrie@gmail.com <span>&nbsp;&nbsp;</span>|
-<span>&nbsp;&nbsp;</span> [<img src="pics/linkedin.png" alt="in" width="20"/>](https://www.linkedin.com/in/yanjun-linked/)
+<span>&nbsp;&nbsp;</span> [<img src="imgs/linkedin.png" alt="in" width="20"/>](https://www.linkedin.com/in/yanjun-linked/)
 
 **UC Berkeley Extension**
 
