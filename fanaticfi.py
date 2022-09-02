@@ -3,7 +3,7 @@ import json
 import math
 from web3 import Web3
 import streamlit as st
-from investor_wallet import generate_account, get_balance, buy_token
+from investor_wallet import generate_account, get_balance
 
 #----------------------------------------------------------------------------------------------------------------------
 # Preparations 
@@ -176,11 +176,41 @@ token_contract=w3.eth.contract(address=celebrity_database[token_name][5], abi=ce
 #----------------------------------------------------------------------------------------------------------------------
 # Transaction functionality designs
 #----------------------------------------------------------------------------------------------------------------------
+from web3.gas_strategies.time_based import medium_gas_price_strategy
+def buy_token(w3, beneficiary, total_price):
+    # Set gas price strategy
+    w3.eth.setGasPriceStrategy(medium_gas_price_strategy)
+
+    # Convert eth amount to Wei
+    value = w3.toWei(total_price, "ether")
+
+    # Calculate gas estimate
+    gasEstimate = w3.eth.estimateGas(
+        {"from": beneficiary.address, "value": value})
+    # Construct a raw transaction
+    txn={
+        'from': beneficiary.address,
+        'value': value, 
+        'gas': gasEstimate,
+        'gasPrice': 0,
+        'nonce': w3.eth.get_transaction_count(beneficiary.address)
+        }
+
+    # Sign the raw transaction with ethereum account
+    signed_txn=beneficiary.signTransaction(txn)
+
+
+    crowdsale_contract.functions.buyTokens(beneficiary.address).buildTransaction()
+
+    # Send the signed transactions
+    return w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+
+
 
 # Click button to buy tokens
 if st.sidebar.button("Buy Token"):
 
-    transaction_hash = buy_token(w3, investor_account, celebrity_address, total_cost)
+    transaction_hash = buy_token(w3, investor_account, total_cost)
 
     # Calculate remaining number of tokens available for sale
     total_supply = token_contract.functions.totalSupply().call()
