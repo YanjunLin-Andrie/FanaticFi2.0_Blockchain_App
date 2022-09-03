@@ -128,6 +128,9 @@ streamlit run fanaticfi.py
 <span>&nbsp;&nbsp;</span> email: yanjun.lin.andrie@gmail.com <span>&nbsp;&nbsp;</span>|
 <span>&nbsp;&nbsp;</span> [<img src="imgs/linkedin.png" alt="in" width="20"/>](https://www.linkedin.com/in/yanjun-linked/)
 
+**Jeffrey Liu** <span>&nbsp;&nbsp;</span> |
+<span>&nbsp;&nbsp;</span> email: jeffreyliu97@gmail.com <span>&nbsp;&nbsp;</span>|
+
 **UC Berkeley Extension**
 
 ---
