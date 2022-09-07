@@ -64,7 +64,7 @@ with open("abi_files/Kimchi_deployer_abi.json") as kim_deployer_abi:
 
 # Establish celebrity database
 celebrity_database = {
-    "BILLYG": ["6 pack Bill", "0xa9Cb436660CA86a6f1955Feb079C5066d6A91cB0", 0.66, "pics/bill.jpeg", 
+    "BILLYG": ["6 pack Bill", "0xa9Cb436660CA86a6f1955Feb079C5066d6A91cB0", 0.66, "pics/bill.jpeg",
     '0xF951439Aa8FCAE61c7FaEf7aD9B923e3513E92df', '0x5BC5F75baC7F2c057efaec82f8102F31526bA47d', BillGates_deployer_abi,
     BillGates_Crowdsale_abi, BillGates_abi],
 
@@ -172,6 +172,15 @@ st.sidebar.write(investor_account)
 deployer_contract=w3.eth.contract(address=celebrity_address, abi=celebrity_database[token_name][6])
 crowdsale_contract=w3.eth.contract(address=celebrity_database[token_name][4], abi=celebrity_database[token_name][7])
 token_contract=w3.eth.contract(address=celebrity_database[token_name][5], abi=celebrity_database[token_name][8])
+
+# Get how many tokens are left in crowdsale
+cap_goal = crowdsale_contract.functions.cap().call() * 10**(-18)
+total_raised = crowdsale_contract.functions.weiRaised().call() * 10**(-18)
+supply_left = cap_goal - total_raised
+
+# Display total tokens left in crowdsale
+st.sidebar.markdown("## Tokens Left")
+st.sidebar.write(f"{supply_left} Tokens")
 
 #----------------------------------------------------------------------------------------------------------------------
 # Transaction functionality designs
