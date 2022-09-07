@@ -64,19 +64,19 @@ with open("abi_files/Kimchi_deployer_abi.json") as kim_deployer_abi:
 
 # Establish celebrity database
 celebrity_database = {
-    "BILLYG": ["6 pack Bill", "0xa9Cb436660CA86a6f1955Feb079C5066d6A91cB0", 0.66, "pics/bill.jpeg",
-    '0xF951439Aa8FCAE61c7FaEf7aD9B923e3513E92df', '0x5BC5F75baC7F2c057efaec82f8102F31526bA47d', BillGates_deployer_abi,
+    "BILLYG": ["6 pack Bill", "0x5e86dfd65b0bCdFa3c179cdcC4710B20b39ca585", 0.0066, "pics/bill.jpeg",
+    '0x24B9ce4B058e0F9774EB173366a81bC6534F30c7', '0x7b345050F592C7AD83A66fdC7E189c3A482504Ca', BillGates_deployer_abi,
     BillGates_Crowdsale_abi, BillGates_abi],
 
-    "ELON": ["Get lit with Elon Musk", "0xd9BA61598720508C1A7FCC403EA87E6de762e0C6", 0.42, "pics/elon.jpeg",
+    "ELON": ["Get lit with Elon Musk", "0xd9BA61598720508C1A7FCC403EA87E6de762e0C6", 0.0042, "pics/elon.jpeg",
     '0xDfE15b50803748BB523df696a972E2bCd12C0d2f', '0x3F62D19Db825A0aa73A491239E3e41dF46BbdafE', ElonMusk_deployer_abi,
     ElonMusk_Crowdsale_abi, ElonMusk_abi],
 
-    "TRUMP": ["Save Donald Trump", "0x0E68C98676DbEfE6A1a53e304E8D0FA8027Fa122", 0.99, "pics/trump.jpeg",
+    "TRUMP": ["Save Donald Trump", "0x0E68C98676DbEfE6A1a53e304E8D0FA8027Fa122", 0.0099, "pics/trump.jpeg",
     '0xaba4711771e0B7AFC30237F3D3E41876B9D64538', '0xf7D5201Aa9Ed749A8573BcdF7D89b53534B394EB', DonaldTrump_deployer_abi,
     DonaldTrump_Crowdsale_abi, DonaldTrump_abi],
 
-    "KIMCHI": ["Kim owns all blockchains", "0x28CF16cd57cb03AA25B3A8a7F4e4eA25A778D385", 0.11, "pics/kim.jpeg",
+    "KIMCHI": ["Kim owns all blockchains", "0x28CF16cd57cb03AA25B3A8a7F4e4eA25A778D385", 0.0011, "pics/kim.jpeg",
     '0x583cfC469CcF2a14bc8B77b1740a6b2333E6F721','0xD86f7e5fECA055e6B3B5d93C9Dc6EEC0C95097d7', Kimchi_deployer_abi,
     Kimchi_Crowdsale_abi, Kimchi_abi]
 }
@@ -205,11 +205,12 @@ def buy_token(w3, beneficiary, total_price):
         'nonce': w3.eth.get_transaction_count(beneficiary.address)
         }
 
+    
+
     # Sign the raw transaction with ethereum account
     signed_txn=beneficiary.signTransaction(txn)
 
-
-    crowdsale_contract.functions.buyTokens(beneficiary.address).buildTransaction()
+    crowdsale_contract.functions.buyTokens(beneficiary.address).buildTransaction(txn)
 
     # Send the signed transactions
     return w3.eth.sendRawTransaction(signed_txn.rawTransaction)
