@@ -94,11 +94,13 @@ token_names = ["BILLYG", "ELON", "TRUMP", "KIMCHI"]
 col1, col2 = st.columns((1,2))
 
 with col1:
-    st.image("pics/fanaticfi.jpeg", width=150)
     st.text(" \n")
+    st.image("pics/fanaticfi.jpeg", width=150)
+    # st.text(" \n")
 with col2:
+    st.text(" \n")
     st.title("Welcome to FanaticFi!")
-    st.header("WHERE FANS GET TO DECIDE!")
+    st.text("WHERE FANS AND IDOLS CONNECT!")
     st.text(" \n")
 
 # Display the database of celebrities and their tokens information
