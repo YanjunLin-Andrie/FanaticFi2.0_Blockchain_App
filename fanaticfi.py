@@ -5,6 +5,16 @@ from web3 import Web3
 import streamlit as st
 from investor_wallet import generate_account, get_balance
 
+def write_supply():
+    # Get how many tokens are left in crowdsale
+    cap_goal = crowdsale_contract.functions.cap().call() * 10 ** (-18)
+    total_raised = crowdsale_contract.functions.weiRaised().call() * 10 ** (-18)
+    supply_left = cap_goal - total_raised
+
+    # Display total tokens left in crowdsale
+    st.sidebar.markdown("## Tokens Left")
+    st.sidebar.write(f"{supply_left} Tokens")
+
 #----------------------------------------------------------------------------------------------------------------------
 # Preparations 
 #----------------------------------------------------------------------------------------------------------------------
@@ -64,8 +74,8 @@ with open("abi_files/Kimchi_deployer_abi.json") as kim_deployer_abi:
 
 # Establish celebrity database
 celebrity_database = {
-    "BILLYG": ["6 pack Bill", "0x5e86dfd65b0bCdFa3c179cdcC4710B20b39ca585", 0.0066, "pics/bill.jpeg",
-    '0x24B9ce4B058e0F9774EB173366a81bC6534F30c7', '0x7b345050F592C7AD83A66fdC7E189c3A482504Ca', BillGates_deployer_abi,
+    "BILLYG": ["6 pack Bill", "0xd6a8b63AAFF4789D4156ec84Bc2B9030EaB87eed", 0.0066, "pics/bill.jpeg",
+    '0x6Cf44E3d171eC73f6A12D923e5eb30B901E7bf5a', '0x8d21d57d5D8bd214C54C61417C2Ee74a2Ff172Ed', BillGates_deployer_abi,
     BillGates_Crowdsale_abi, BillGates_abi],
 
     "ELON": ["Get lit with Elon Musk", "0xd9BA61598720508C1A7FCC403EA87E6de762e0C6", 0.0042, "pics/elon.jpeg",
@@ -175,15 +185,7 @@ deployer_contract=w3.eth.contract(address=celebrity_address, abi=celebrity_datab
 crowdsale_contract=w3.eth.contract(address=celebrity_database[token_name][4], abi=celebrity_database[token_name][7])
 token_contract=w3.eth.contract(address=celebrity_database[token_name][5], abi=celebrity_database[token_name][8])
 
-# Get how many tokens are left in crowdsale
-cap_goal = crowdsale_contract.functions.cap().call() * 10**(-18)
-total_raised = crowdsale_contract.functions.weiRaised().call() * 10**(-18)
-supply_left = cap_goal - total_raised
-
-# Display total tokens left in crowdsale
-st.sidebar.markdown("## Tokens Left")
-st.sidebar.write(f"{supply_left} Tokens")
-
+write_supply()
 #----------------------------------------------------------------------------------------------------------------------
 # Transaction functionality designs
 #----------------------------------------------------------------------------------------------------------------------
@@ -225,12 +227,13 @@ if st.sidebar.button("Buy Token"):
     transaction_hash = buy_token(w3, investor_account, total_cost)
 
     # Calculate remaining number of tokens available for sale
-    total_supply = token_contract.functions.totalSupply().call()
-    cap = crowdsale_contract.functions.cap().call()
-    remaining_tokens = cap - total_supply
+    # total_supply = token_contract.functions.totalSupply().call()
+    # cap = crowdsale_contract.functions.cap().call()
+    # remaining_tokens = cap - total_supply
+    write_supply()
 
     # Write available token balance
-    st.sidebar.write("#### Only ", remaining_tokens, "amount of tokens are available")
+    # st.sidebar.write("#### Only ", remaining_tokens, "amount of tokens are available")
 
     # Markdown for the transaction hash
     st.sidebar.markdown("#### Validated Transaction Hash")
